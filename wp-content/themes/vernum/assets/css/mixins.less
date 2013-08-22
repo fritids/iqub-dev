@@ -1,0 +1,71 @@
+// Opacity
+// -------------------------
+.opacity(@opacity: 0.5) {
+  -moz-opacity: @opacity;
+  -khtml-opacity: @opacity;
+  -webkit-opacity: @opacity;
+  opacity: @opacity;
+}
+
+// Sizing shortcuts
+// -------------------------
+.size(@height, @width) {
+  width: @width;
+  height: @height;
+}
+.square(@size) {
+  .size(@size, @size);
+}
+
+// Text overflow
+// -------------------------
+// Requires inline-block or block for proper styling
+.text-overflow() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Reset filters for IE
+.reset-filter() {
+  filter: e(%("progid:DXImageTransform.Microsoft.gradient(enabled = false)"));
+}
+
+// CSS3 PROPERTIES
+// --------------------------------------------------
+.transition(@transition) {
+  -webkit-transition: @transition;
+     -moz-transition: @transition;
+       -o-transition: @transition;
+          transition: @transition;
+}
+.scale(@ratio) {
+  -webkit-transform: scale(@ratio);
+     -moz-transform: scale(@ratio);
+      -ms-transform: scale(@ratio);
+       -o-transform: scale(@ratio);
+          transform: scale(@ratio);
+}
+
+// Border Radius
+.border-radius(@radius) {
+  -webkit-border-radius: @radius;
+     -moz-border-radius: @radius;
+          border-radius: @radius;
+}
+
+// Drop shadows
+.box-shadow(@shadowA, @shadowB:X, ...){
+  // Multiple shadow solution from http://toekneestuck.com/blog/2012/05/15/less-css-arguments-variable/
+  @props: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`;
+  -webkit-box-shadow: @props;
+     -moz-box-shadow: @props;
+          box-shadow: @props;
+}
+
+// Box sizing
+.box-sizing(@boxmodel) {
+  -webkit-box-sizing: @boxmodel;
+     -moz-box-sizing: @boxmodel;
+          box-sizing: @boxmodel;
+}
