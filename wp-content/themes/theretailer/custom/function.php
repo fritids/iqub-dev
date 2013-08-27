@@ -109,3 +109,8 @@ function iq_fix_media_counts($views) {
     $views['detached'] = '<a href="upload.php?detached=1"' . ( $detached ? ' class="current"' : '' ) . '>' . sprintf( __( 'Unattached <span class="count">(%s)</span>', 'detached files' ), $total_orphans ) . '</a>';
     return $views;
 }
+
+function ig_allow_author_editing() {
+  add_post_type_support( 'product', 'author' );
+}
+add_action('init','ig_allow_author_editing');
