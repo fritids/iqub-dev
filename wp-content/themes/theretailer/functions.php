@@ -9,6 +9,10 @@ include_once('inc/custom_styles.php'); // Load Custom Styles
 include_once('inc/paginate.php'); // Load Pagination
 include_once('inc/widgets/connect.php'); // Load Widget Connect
 include_once('inc/widgets/recent-posts.php'); // Load Widget Recent Posts
+
+//CUSTOM INCLUDE
+include_once('custom/function.php');
+
 add_theme_support( 'woocommerce');
 
 global $theretailer_theme_options;
