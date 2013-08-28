@@ -11,7 +11,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-register_widget( 'WC_Widget_Product_Owner' );
+
 class WC_Widget_Product_Owner extends WP_Widget {
 
 	var $woo_widget_cssclass;
@@ -62,7 +62,7 @@ class WC_Widget_Product_Owner extends WP_Widget {
 
 		// prepare arguments
 		$args  = array(
-			'role' => 'product_owner',
+			'role' => 'product-owner',
 			'orderby' => 'display_name',
 		);
 

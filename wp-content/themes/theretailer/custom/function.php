@@ -3,8 +3,12 @@
 /*********************************************/
 /**************** INCLUDES *******************/
 /*********************************************/
-include_once('widgets.php'); // Load Widgets
+include_once('widget.php'); // Load Widgets
 
+function iq_register_widgets() {
+    register_widget( 'WC_Widget_Product_Owner' );
+}
+add_action( 'widgets_init', 'iq_register_widgets');
 
 function iq_products_for_current_po($query) {
 	global $pagenow;
