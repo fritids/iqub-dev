@@ -27,7 +27,7 @@ if ( ! $product->is_visible() )
 
 // Increase loop count
 $woocommerce_loop['loop']++;
-
+$author = get_userdata($post->post_author);
 ?>
 
 	
@@ -101,5 +101,6 @@ $woocommerce_loop['loop']++;
                  
                 do_action( 'woocommerce_after_shop_loop_item_title' );
             ?>
-        
+
+        	<p><?php _e('by') ?> <a href="<?php echo get_author_posts_url($author->ID); ?>"><?php echo $author->display_name; ?></a></p>
         </li>
