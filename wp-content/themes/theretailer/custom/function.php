@@ -1,5 +1,11 @@
 <?php
 
+/*********************************************/
+/**************** INCLUDES *******************/
+/*********************************************/
+include_once('widgets.php'); // Load Widgets
+
+
 function iq_products_for_current_po($query) {
 	global $pagenow;
 
