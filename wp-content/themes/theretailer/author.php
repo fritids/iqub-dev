@@ -3,6 +3,7 @@
 global $theretailer_theme_options;
 
 global $wp_query;
+$curauth = (get_query_var('author_name')) ? get_user_by('slug', get_query_var('author_name')) : get_userdata(get_query_var('author'));
 
 $archive_product_sidebar = 'no';
 
@@ -29,7 +30,7 @@ get_header('shop'); ?>
         
                 <div class="category_header">
 
-                    <h1 class="page-title"><?php woocommerce_page_title(); ?></h1>
+                    <h1 class="page-title"><?php echo $curauth->display_name . ' '; woocommerce_page_title(); ?></h1>
                     
                     <?php
 					
