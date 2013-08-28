@@ -62,7 +62,7 @@ class WC_Widget_Product_Owner extends WP_Widget {
 
 		// prepare arguments
 		$args  = array(
-			'role' => 'product-owner',
+			'role' => 'product_owner',
 			'orderby' => 'display_name',
 		);
 
