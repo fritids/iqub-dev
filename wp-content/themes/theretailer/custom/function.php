@@ -6,7 +6,18 @@
 include_once('widget.php'); // Load Widgets
 
 function iq_register_widgets() {
+    if ( function_exists('register_sidebar') ) {
+        register_sidebar(array(
+            'name' => __( 'Brand Sidebar', 'theretailer' ),
+            'id' => 'widgets_brand_details',
+            'before_widget' => '<div id="%1$s" class="widget %2$s">',
+            'after_widget' => '</div>',
+            'before_title' => '<h1 class="widget-title">',
+            'after_title' => '</h1>',
+        ));
+    }
     register_widget( 'WC_Widget_Product_Owner' );
+    register_widget( 'WC_Widget_Brand_Details' );
 }
 add_action( 'widgets_init', 'iq_register_widgets');
 
@@ -120,7 +131,47 @@ function iq_fix_media_counts($views) {
     return $views;
 }
 
-function ig_allow_author_editing() {
+function iq_allow_author_editing() {
   add_post_type_support( 'product', 'author' );
 }
-add_action('init','ig_allow_author_editing');
+add_action('init','iq_allow_author_editing');
+
+function iq_change_author_permalinks() {
+    global $wp_rewrite;
+    $wp_rewrite->author_base = 'brand';
+    $wp_rewrite->author_structure = '/' . $wp_rewrite->author_base. '/%author%';
+
+    add_rewrite_rule(
+        'shop/([^/]+)/?',
+        'index.php?pagename=shop&brand=$matches[1]',
+        'top'
+    );
+    
+}
+add_action('init','iq_change_author_permalinks');
+
+
+add_filter( 'query_vars', 'iq_query_vars' );
+function iq_query_vars( $query_vars ) {
+    $query_vars[] = 'brand';
+    return $query_vars;
+}
+
+
+function iq_get_brand_shop_link($brand) {
+    if (is_numeric($brand)) {
+        $brand = get_userdata($brand);
+    }
+
+    return '/shop/' . $brand->nickname;
+}
+
+function iq_disable_zopim_chat() {
+    remove_action('get_footer', 'zopimme');
+}
+
+function debug_me($data) {
+    echo '<pre>';
+    var_dump($data);
+    echo '</pre>';
+}

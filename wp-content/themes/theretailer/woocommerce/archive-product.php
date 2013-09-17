@@ -10,7 +10,23 @@ if ( ($theretailer_theme_options['sidebar_listing']) && ($theretailer_theme_opti
 
 if (isset($_GET["product_listing_sidebar"])) { $archive_product_sidebar = $_GET["product_listing_sidebar"]; }
 
-get_header('shop'); ?>
+
+$brand = get_query_var('brand');
+global $query_string;
+
+$args = array(
+    'post_type' => 'product'
+);
+if ($brand) {
+    $args['author_name'] = $brand;
+}
+query_posts( $args );
+$woocommerce->query->unfiltered_product_ids = $wp_query->post_count;
+
+$current_brand = get_user_by('slug', $brand);
+
+get_header('shop'); 
+?>
 
 	<div class="container_12">
 
@@ -29,11 +45,18 @@ get_header('shop'); ?>
         
                 <div class="category_header">
 
-                    <h1 class="page-title"><?php woocommerce_page_title(); ?></h1>
+                    <h1 class="page-title">
+                        <?php if ($current_brand) {
+                            echo $current_brand->display_name . ' ' . __('Shop', 'iqubator');
+                        } else {
+                            woocommerce_page_title();
+                        } ?>
+                    </h1>
                     
                     <?php
-					
-					woocommerce_get_template( 'loop/result-count.php' );
+					if (!$brand) {
+					   woocommerce_get_template( 'loop/result-count.php' );
+                    }
 					
 					global $woocommerce;
 
@@ -56,30 +79,38 @@ get_header('shop'); ?>
             <?php elseif ( ! empty( $shop_page ) && is_object( $shop_page ) ) : ?>
                 <?php do_action( 'woocommerce_product_archive_description', $shop_page ); ?>
             <?php endif; ?>
-    
-            <?php if ( have_posts() ) : ?>
-                    
-                    <?php if (woocommerce_product_subcategories()) : ?><hr class="paddingbottom40" /><?php endif; ?>
-    
-                    <?php while ( have_posts() ) : the_post(); ?>
-    
+            
+            <div class="listing_products__desc">
+
+                <?php if ( have_posts() ) : ?>
                         
-                            <?php woocommerce_get_template_part( 'content', 'product' ); ?>
-                       
-    
-                    <?php endwhile; // end of the loop. ?>
-                
-    
-            <?php else : ?>
-    
-                <?php if ( ! woocommerce_product_subcategories( array( 'before' => '<ul class="products">', 'after' => '</ul>' ) ) ) : ?>
-    
-                    <p><?php _e( 'No products found which match your selection.', 'woocommerce' ); ?></p>
-    
+                        <?php if (woocommerce_product_subcategories()) : ?><hr class="paddingbottom40" /><?php endif; ?>
+        
+                        <?php while ( have_posts() ) : the_post(); ?>
+        
+                            
+                                <?php woocommerce_get_template_part( 'content', 'product' ); ?>
+                           
+        
+                        <?php endwhile; // end of the loop. ?>
+                    
+        
+                <?php else : ?>
+        
+                    <?php if ( ! woocommerce_product_subcategories( array( 'before' => '<ul class="products">', 'after' => '</ul>' ) ) ) : ?>
+        
+                        <p><?php _e( 'No products found which match your selection.', 'woocommerce' ); ?></p>
+        
+                    <?php endif; ?>
+        
                 <?php endif; ?>
-    
-            <?php endif; ?>
-    
+            
+            </div>
+            
+            <div class="contact_form woocommerce hidden">
+                <?php echo do_shortcode('[contact-form-7 id="117" title="Contact brand"]'); ?>
+            </div>
+
             <div class="clear"></div>
             
             <?php
