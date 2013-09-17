@@ -4,6 +4,14 @@ jQuery(document).ready(function($) {
 	
 	"use strict";
 
+	$('#toggle-brand-contact').click(function(e) {
+		e.preventDefault();
+		$('.listing_products .contact_form').toggleClass('hidden');
+		$('.listing_products__desc').toggleClass('hidden');
+
+		return false;
+	});
+
 	$(".gbtr_menu_mobiles select").customSelect({customClass:'menu_select'});
 	$(".woocommerce_ordering select").customSelect({customClass:'theretailer_product_sort'});
 	$(".woocommerce-ordering select").customSelect({customClass:'theretailer_product_sort'});
