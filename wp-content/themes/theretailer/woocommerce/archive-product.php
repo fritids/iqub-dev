@@ -2,7 +2,7 @@
  
 global $theretailer_theme_options;
 
-global $wp_query;
+global $wp_query, $woocommerce;
 
 $archive_product_sidebar = 'no';
 
