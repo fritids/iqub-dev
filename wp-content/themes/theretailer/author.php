@@ -64,7 +64,7 @@ get_header('shop'); ?>
             </div>           
             
             <div class="contact_form woocommerce hidden">
-                <?php echo do_shortcode('[contact-form-7 id="117" title="Contact brand"]'); ?>
+                <?php echo do_shortcode('[contact-form-7 id="150" title="Contact brand"]'); ?>
             </div>      
             
 
