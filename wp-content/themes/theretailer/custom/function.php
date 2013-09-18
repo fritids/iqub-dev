@@ -143,10 +143,9 @@ function iq_change_author_permalinks() {
 
     add_rewrite_rule(
         'shop/([^/]+)/?',
-        'index.php?pagename=shop&brand=$matches[1]',
+        'index.php?brand=$matches[1]',
         'top'
     );
-    
 }
 add_action('init','iq_change_author_permalinks');
 
@@ -157,6 +156,14 @@ function iq_query_vars( $query_vars ) {
     return $query_vars;
 }
 
+function iq_template_redirect(){
+    global $wp_query;
+    if($wp_query->get('brand')):
+        include( get_template_directory() ."/woocommerce/archive-product.php" );
+        exit();
+    endif;
+}
+add_filter( 'template_redirect', 'iq_template_redirect' );
 
 function iq_get_brand_shop_link($brand) {
     if (is_numeric($brand)) {
